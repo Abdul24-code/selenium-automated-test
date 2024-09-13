@@ -1,0 +1,39 @@
+name: Manual Test Suite
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_case:
+        description: 'Choose Test Case'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - test_case_5_and_6
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          pip install selenium webdriver-manager
+
+      - name: Run Full Set of Tests
+        if: ${{ inputs.test_case == 'full' }}
+        run: |
+          python -m unittest discover -s tests
+
+      - name: Run Test Case 5 and 6 Only
+        if: ${{ inputs.test_case == 'test_case_5_and_6' }}
+        run: |
+          python -m unittest tests/test_google_finance.py -k "test_google_finance_stocks"
+
