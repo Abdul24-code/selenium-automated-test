@@ -4,16 +4,16 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from page_objects.google_finance_page import GoogleFinancePage
-from selenium.common.exceptions import TimeoutException
+# from selenium.common.exceptions import TimeoutException
 
-try:
-    WebDriverWait(self.driver, 10).until(...)
-except TimeoutException:
-    # Retry after a short delay
-    time.sleep(2)
-    WebDriverWait(self.driver, 10).until(...)
+# try:
+#     WebDriverWait(self.driver, 10).until(...)
+# except TimeoutException:
+#     # Retry after a short delay
+#     time.sleep(2)
+#     WebDriverWait(self.driver, 10).until(...)
 
-class TestGoogleFinance(unittest.TestCase):
+# class TestGoogleFinance(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -24,6 +24,7 @@ class TestGoogleFinance(unittest.TestCase):
         chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
         chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration (required for some environments)
         chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+        chrome_options.add_argument('--disable-search-engine-choice-screen')
 
         # Initialize Chrome WebDriver
         cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
