@@ -26,6 +26,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install selenium webdriver-manager
+          pip install pylance
 
       - name: Run Full Set of Tests
         if: ${{ inputs.test_case == 'full' }}
