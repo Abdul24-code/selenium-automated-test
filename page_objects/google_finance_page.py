@@ -44,7 +44,7 @@ class GoogleFinancePage:
 
     def get_stock_symbols(self):
         # Wait until the section containing stock symbols is visible
-        WebDriverWait(self.driver, 20).until(
+        WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, self.stock_section_locator))
         )
         # Update to find stock symbols more precisely
