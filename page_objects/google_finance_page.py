@@ -6,7 +6,8 @@ class GoogleFinancePage:
     def __init__(self, driver):
         self.driver = driver
         self.url = "https://www.google.com/finance"
-        self.stock_section_locator = "//div[contains(text(),'You may be interested in info')]"
+        # Updated XPath locator for the section "You may be interested in"
+        self.stock_section_locator = "//div[contains(text(),'You may be interested in')]"
 
     def load(self):
         self.driver.get(self.url)
@@ -15,8 +16,10 @@ class GoogleFinancePage:
         return self.driver.title
 
     def get_stock_symbols(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, self.stock_section_locator))
+        # Wait for the section to be visible
+        WebDriverWait(self.driver, 20).until(
+            EC.visibility_of_element_located((By.XPATH, self.stock_section_locator))
         )
-        stock_elements = self.driver.find_elements(By.XPATH, "//a[@class='EIXGkd']")  # Example XPath for stock symbols
-        return [stock.text for stock in stock_elements]
+        # Example of finding stock symbols based on a more specific XPath or CSS selector
+        stock_elements = self.driver.find_elements(By.XPATH, "//a[@class='EIXGkd']")  # Adjusted XPath
+        return [stock.text for stock in stock_elements if stock.text]
