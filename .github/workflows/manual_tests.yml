@@ -21,16 +21,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12.4'
-
-      - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          python-version: '3.x'
 
       - name: Install Dependencies
         run: |
-          pip install selenium webdriver-manager pylance
+          pip install selenium
 
       - name: Run Full Set of Tests
         if: ${{ inputs.test_case == 'full' }}
