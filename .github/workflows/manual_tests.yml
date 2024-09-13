@@ -23,10 +23,14 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
       - name: Install Dependencies
         run: |
-          pip install selenium
-          pip install webdriver-manager
+          pip install selenium webdriver-manager
           pip install pylance
 
       - name: Run Full Set of Tests
@@ -34,8 +38,4 @@ jobs:
         run: |
           python -m unittest discover -s tests
 
-      - name: Run Test Case 5 and 6 Only
-        if: ${{ inputs.test_case == 'test_case_5_and_6' }}
-        run: |
-          python -m unittest tests/test_google_finance.py -k "test_google_finance_stocks"
 
