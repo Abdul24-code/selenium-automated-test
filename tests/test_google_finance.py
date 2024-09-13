@@ -1,13 +1,22 @@
 import unittest
 from selenium import webdriver
-from page_objects.google_finance_page import GoogleFinancePage  # Assuming you saved the POM in a folder named page_objects
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from page_objects.google_finance_page import GoogleFinancePage
 
 class TestGoogleFinance(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Chrome WebDriver
-        cls.driver = webdriver.Chrome()
+        # Set Chrome options to run in headless mode
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run in headless mode
+        chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+
+        # Initialize Chrome WebDriver
+        cls.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
         cls.google_finance_page = GoogleFinancePage(cls.driver)
 
     def test_google_finance_stocks(self):
