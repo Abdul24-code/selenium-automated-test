@@ -13,13 +13,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12.4'
+          python-version: '3.x'
 
       - name: Install Dependencies
         run: |
-          pip install selenium webdriver-manager
+          pip install selenium
 
       - name: Run Full Set of Tests
         run: |
           python -m unittest discover -s tests
-
