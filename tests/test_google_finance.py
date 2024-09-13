@@ -29,8 +29,8 @@ class TestGoogleFinance(unittest.TestCase):
         print("Retrieving stock symbols...")
         try:
             pass
-            # retrieved_symbols = self.google_finance_page.get_stock_symbols()
-            # print("Retrieved symbols:", retrieved_symbols)
+            retrieved_symbols = self.google_finance_page.get_stock_symbols()
+            print("Retrieved symbols:", retrieved_symbols)
         except Exception as e:
             print("Error while retrieving stock symbols:", e)
             raise e
