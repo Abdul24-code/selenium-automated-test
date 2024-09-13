@@ -4,6 +4,14 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from page_objects.google_finance_page import GoogleFinancePage
+from selenium.common.exceptions import TimeoutException
+
+try:
+    WebDriverWait(self.driver, 10).until(...)
+except TimeoutException:
+    # Retry after a short delay
+    time.sleep(2)
+    WebDriverWait(self.driver, 10).until(...)
 
 class TestGoogleFinance(unittest.TestCase):
 
