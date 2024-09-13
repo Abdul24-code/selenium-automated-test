@@ -30,15 +30,14 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install pylance
-          
-      - name: Install Dependencies
-        run: |
-          pip install selenium webdriver-manager
+          pip install selenium webdriver-manager pylance
 
       - name: Run Full Set of Tests
         if: ${{ inputs.test_case == 'full' }}
         run: |
           python -m unittest discover -s tests
 
-
+      - name: Run Test Case 5 and 6 Only
+        if: ${{ inputs.test_case == 'test_case_5_and_6' }}
+        run: |
+          python -m unittest tests/test_google_finance.py -k "test_google_finance_stocks"
